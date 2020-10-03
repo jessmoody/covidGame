@@ -95,13 +95,15 @@ while True:
     # Move the player
     if player.direction == "left":
         x = player.xcor()
-        x -= 0.8
-        player.setx(x)
+        if x > -365:
+            x -= 0.8
+            player.setx(x)
     
     if player.direction == "right":
         x = player.xcor()
-        x += 0.8
-        player.setx(x)
+        if x < 365:
+            x += 0.8
+            player.setx(x)
 
     # Move the good guys
     for good_guy in good_guys:

@@ -36,7 +36,7 @@ for _ in range(5):
     good_guy.color("blue")
     good_guy.penup()
     good_guy.goto(-100, 250)
-    good_guy.speed = random.randint(1, 4)
+    good_guy.speed = random.uniform(0.3, 1.0)
     good_guys.append(good_guy)
 
 # Create a list of bad guys
@@ -91,19 +91,23 @@ wn.onkeypress(go_right, "Right")
 while True:
     # Update screen
     wn.update()
-
+    
     # Move the player
     if player.direction == "left":
         x = player.xcor()
         if x > -365:
             x -= 0.8
+            player.speed(0)
             player.setx(x)
+            
     
     if player.direction == "right":
         x = player.xcor()
         if x < 365:
             x += 0.8
+            player.speed(0)
             player.setx(x)
+            
 
     # Move the good guys
     for good_guy in good_guys:

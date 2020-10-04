@@ -29,14 +29,14 @@ player.direction = "stop"
 good_guys = []
 
 # Add the good_guys
-for _ in range(5):
+for _ in range(3):
     good_guy = turtle.Turtle()
     good_guy.speed(0)
     good_guy.shape("surgical-mask.gif")
     good_guy.color("blue")
     good_guy.penup()
     good_guy.goto(-100, 250)
-    good_guy.speed = random.randint(1, 4)
+    good_guy.speed = random.uniform(0.3, 2.0)
     good_guys.append(good_guy)
 
 # Create a list of bad guys
@@ -158,7 +158,7 @@ while True:
         bad_guy.clear()
         good_guy.clear()
         show_message(score)
-
+   
 
 
 wn.mainloop()

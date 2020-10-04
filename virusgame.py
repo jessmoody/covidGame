@@ -64,6 +64,17 @@ pen.goto(0, 260)
 font = ("Courier", 24, "normal")
 pen.write("Score: {} Lives: {}".format(score, lives), align="center", font=font)
 
+''' def newGame_message():
+    message = turtle.Turtle()
+    message.hideturtle()
+    message.speed(0)
+    message.color("white")
+    message.penup()
+    message.goto(0, 0)
+    font = ("Courier", 24, "normal")
+    message.write("Press 'a' to start\n Press 'q' to quit", align="center", font=font) 
+ '''
+
 # Make the message
 def show_message(score):
     message = turtle.Turtle()
@@ -92,72 +103,96 @@ wn.onkeyrelease(stop_player, "Left")
 wn.onkeypress(go_right, "Right")
 wn.onkeyrelease(stop_player, "Right")
 
-# Main game loop
+new_game = False
+
+def toggle_new_game():
+    global new_game
+    if new_game == False:
+        new_game = True
+    else:
+        new_game = False
+
+def game_loop():
+    global lives
+    global score
+    global new_game
+    while True:
+        # Update screen
+        wn.update()
+
+        # Move the player
+        if player.direction == "left":
+            x = player.xcor()
+            if x > -365:
+                x -= 0.8
+                player.setx(x)
+        
+        if player.direction == "right":
+            x = player.xcor()
+            if x < 365:
+                x += 0.8
+                player.setx(x)
+
+        # Move the good guys
+        for good_guy in good_guys:
+            y = good_guy.ycor()
+            y -= good_guy.speed
+            good_guy.sety(y)
+
+            # Check if off the screen
+            if y < -300:
+                x = random.randint(-380, 380)
+                y = random.randint(300, 400)
+                good_guy.goto(x, y)
+
+            # Check for a collision with player
+            if good_guy.distance(player) < 40:
+                x = random.randint(-380, 380)
+                y = random.randint(300, 400)
+                good_guy.goto(x, y)
+                score += 10
+                pen.clear()
+                pen.write("Score: {} Lives: {}".format(score, lives), align="center", font=font)
+            
+        # Move the bad guys
+        for bad_guy in bad_guys:
+            y = bad_guy.ycor()
+            y -= bad_guy.speed
+            bad_guy.sety(y)
+
+            # Check if off the screen
+            if y < -300:
+                x = random.randint(-380, 380)
+                y = random.randint(300, 400)
+                bad_guy.goto(x, y)
+
+            # Check for a collision with player
+            if bad_guy.distance(player) < 40:
+                x = random.randint(-380, 380)
+                y = random.randint(300, 400)
+                bad_guy.goto(x, y)
+                score -= 10
+                lives -= 1
+                pen.clear()
+                pen.write("Score: {} Lives: {}".format(score, lives), align="center", font=font)
+
+        if lives < 0:
+            pen.clear()
+            bad_guy.clear()
+            good_guy.clear()
+            show_message(score)
+            wn.listen()
+            wn.onkeypress(toggle_new_game, "a")
+            if new_game == True:
+                break
+
 while True:
     # Update screen
     wn.update()
-
-    # Move the player
-    if player.direction == "left":
-        x = player.xcor()
-        if x > -365:
-            x -= 0.8
-            player.setx(x)
+    game_loop()
+    #newGame_message()
     
-    if player.direction == "right":
-        x = player.xcor()
-        if x < 365:
-            x += 0.8
-            player.setx(x)
-
-    # Move the good guys
-    for good_guy in good_guys:
-        y = good_guy.ycor()
-        y -= good_guy.speed
-        good_guy.sety(y)
-
-        # Check if off the screen
-        if y < -300:
-            x = random.randint(-380, 380)
-            y = random.randint(300, 400)
-            good_guy.goto(x, y)
-
-        # Check for a collision with player
-        if good_guy.distance(player) < 40:
-            x = random.randint(-380, 380)
-            y = random.randint(300, 400)
-            good_guy.goto(x, y)
-            score += 10
-            pen.clear()
-            pen.write("Score: {} Lives: {}".format(score, lives), align="center", font=font)
-        
-    # Move the bad guys
-    for bad_guy in bad_guys:
-        y = bad_guy.ycor()
-        y -= bad_guy.speed
-        bad_guy.sety(y)
-
-        # Check if off the screen
-        if y < -300:
-            x = random.randint(-380, 380)
-            y = random.randint(300, 400)
-            bad_guy.goto(x, y)
-
-        # Check for a collision with player
-        if bad_guy.distance(player) < 40:
-            x = random.randint(-380, 380)
-            y = random.randint(300, 400)
-            bad_guy.goto(x, y)
-            score -= 10
-            lives -= 1
-            pen.clear()
-            pen.write("Score: {} Lives: {}".format(score, lives), align="center", font=font)
-
-    if lives < 0:
-        pen.clear()
-        bad_guy.clear()
-        good_guy.clear()
-        show_message(score)
+     
    
 
 

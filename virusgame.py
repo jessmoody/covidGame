@@ -154,6 +154,7 @@ def game_loop():
                 score += 10
                 pen.clear()
                 pen.write("Score: {} Lives: {}".format(score, lives), align="center", font=font)
+                winsound.PlaySound("video_game_retro_8bit_coin", winsound.SND_FILENAME)
             
         # Move the bad guys
         for bad_guy in bad_guys:
@@ -176,12 +177,14 @@ def game_loop():
                 lives -= 1
                 pen.clear()
                 pen.write("Score: {} Lives: {}".format(score, lives), align="center", font=font)
+                winsound.PlaySound("arcade_game_alarm_short", winsound.SND_FILENAME)
 
         if lives < 0:
             pen.clear()
             bad_guy.clear()
             good_guy.clear()
             show_message(score)
+            winsound.PlaySound("game_over_sound", winsound.SND_FILENAME)
             wn.listen()
             wn.onkeypress(toggle_new_game, "a")
             if new_game == True:

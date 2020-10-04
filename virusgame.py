@@ -36,7 +36,7 @@ for _ in range(5):
     good_guy.color("blue")
     good_guy.penup()
     good_guy.goto(-100, 250)
-    good_guy.speed = random.uniform(0.3, 1.0)
+    good_guy.speed = random.randint(1, 4)
     good_guys.append(good_guy)
 
 # Create a list of bad guys

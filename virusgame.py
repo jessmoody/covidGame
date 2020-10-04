@@ -1,6 +1,7 @@
 
 import turtle
 import random
+import winsound
 
 score = 0
 lives = 3
@@ -189,6 +190,8 @@ def game_loop():
 while True:
     # Update screen
     wn.update()
+    # Play music
+    winsound.PlaySound("retro_video_game_music", winsound.SND_LOOP)
     game_loop()
     #newGame_message()
     

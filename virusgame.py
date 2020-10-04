@@ -82,32 +82,33 @@ def go_left():
 def go_right():
     player.direction = "right"
 
+def stop_player():
+    player.direction = "stop"
+
 # Keyboard Binding
 wn.listen()
 wn.onkeypress(go_left, "Left")
+wn.onkeyrelease(stop_player, "Left")
 wn.onkeypress(go_right, "Right")
+wn.onkeyrelease(stop_player, "Right")
 
 # Main game loop
 while True:
     # Update screen
     wn.update()
-    
+
     # Move the player
     if player.direction == "left":
         x = player.xcor()
         if x > -365:
             x -= 0.8
-            player.speed(0)
             player.setx(x)
-            
     
     if player.direction == "right":
         x = player.xcor()
         if x < 365:
             x += 0.8
-            player.speed(0)
             player.setx(x)
-            
 
     # Move the good guys
     for good_guy in good_guys:

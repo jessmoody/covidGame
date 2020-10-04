@@ -6,28 +6,29 @@ import sys
 
 
 
-new_game = False
+""" new_game = False
 
 def toggle_new_game():
     global new_game
     if new_game == False:
         new_game = True
     else:
-        new_game = False
+        new_game = False """
 
 wn = turtle.Screen()
 wn.title("MaskUp")
 wn.bgcolor("green")
-wn.bgpic("retro_city.gif")
+wn.bgpic("retro_city_title_page.gif")
 wn.setup(width=800, height=600)
 wn.tracer(0)
 wn.register_shape("human.gif")
 
+
 def game_loop():
     score = 0
     lives = 3
-    global new_game
 
+    wn.register_shape("human.gif")
     wn.register_shape("Evil-Virus.gif")
     wn.register_shape("surgical-mask.gif")
 
@@ -81,26 +82,15 @@ def game_loop():
     font = ("Courier", 24, "normal")
     pen.write("Score: {} Lives: {}".format(score, lives), align="center", font=font)
 
-    ''' def newGame_message():
-        message = turtle.Turtle()
-        message.hideturtle()
-        message.speed(0)
-        message.color("white")
-        message.penup()
-        message.goto(0, 0)
-        font = ("Courier", 24, "normal")
-        message.write("Press 'a' to start\n Press 'q' to quit", align="center", font=font) 
-    '''
-
     # Make the message
     def show_message(score):
         message = turtle.Turtle()
         message.hideturtle()
         message.speed(0)
-        message.color("white")
+        message.color("yellow")
         message.penup()
         message.goto(0, 0)
-        font = ("Courier", 24, "bold")
+        font = ("Calibri", 24, "bold")
         message.write("GAME OVER: TOO MUCH EXPOSURE TO VIRUS\n Score: {}\n!MASK UP and STAY SAFE!".format(score), align="center", font=font) 
 
     # Functions
@@ -199,13 +189,22 @@ def game_loop():
 while True:
     # Update screen
     wn.update()
-    # Play music
-    winsound.PlaySound("retro_video_game_music", winsound.SND_LOOP)
-    game_loop()
-    #turtle.resetscreen()
 
-    sys.exit()
-    #newGame_message()
+    # Play music
+    wn.bgpic("retro_city.gif")
+    winsound.PlaySound("retro_video_game_music-trimmed", winsound.SND_LOOP)
+    game_loop()
+    turtle.Screen().clear()
+    
+    wn = turtle.Screen()
+    wn.title("MaskUp")
+    wn.bgcolor("green")
+    wn.bgpic("retro_city_title_page.gif")
+    wn.setup(width=800, height=600)
+    wn.tracer(0)
+
+    #sys.exit()
+    
     
      
    

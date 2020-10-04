@@ -18,7 +18,7 @@ def toggle_new_game():
 wn = turtle.Screen()
 wn.title("MaskUp")
 wn.bgcolor("green")
-wn.bgpic("retro_city.gif")
+wn.bgpic("retro_city_title_page.gif")
 wn.setup(width=800, height=600)
 wn.tracer(0)
 wn.register_shape("human.gif")
@@ -189,8 +189,9 @@ def game_loop():
 while True:
     # Update screen
     wn.update()
-    #newGame_message("MASK UP")
+
     # Play music
+    wn.bgpic("retro_city.gif")
     winsound.PlaySound("retro_video_game_music-trimmed", winsound.SND_LOOP)
     game_loop()
     turtle.Screen().clear()
@@ -198,7 +199,7 @@ while True:
     wn = turtle.Screen()
     wn.title("MaskUp")
     wn.bgcolor("green")
-    wn.bgpic("retro_city.gif")
+    wn.bgpic("retro_city_title_page.gif")
     wn.setup(width=800, height=600)
     wn.tracer(0)
 
